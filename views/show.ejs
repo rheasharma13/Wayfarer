@@ -1,0 +1,260 @@
+<%- include("header.ejs"); %>
+<!-- <div class="container">
+    <h1 style="color:#ef6c57"><%= foundspot.name %></h1>
+    <div class="img-thumbnail">
+        <img src=<%= foundspot.image %> alt="">
+    </div>
+<% var comments=foundspot.comments; %>
+ <% comments.forEach(function(comment){ %>
+    <p>Author:  <%=comment.author%></p>
+    <p>Text:  <%=comment.text%></p>
+<%});%>
+</div> -->
+<div class="site-blocks-cover /images/hero_bg_1.jpg" style="background-image: url(/images/hero_bg_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+  <div class="container">
+    <div class="row align-items-center justify-content-center text-center">
+
+      <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
+        <h1 class="text-white font-weight-light">Destinations</h1>
+        <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">Destinations</span></div>
+        
+      </div>
+    </div>
+  </div>
+</div>  
+
+
+
+<div class="container mt-4 pt-4">
+      <div class="item">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 mb-5">
+              <img src=<%= foundspot.image %> alt="Image" class="img-md-fluid">
+            </div>
+            <div class="overlap-left col-lg-6 bg-white pl-1 pl-md-5 ">
+              <h2 class="font-weight-normal my-4  " style="color:#ef6c57;"><%= foundspot.name %> ,<span style="color:cadetblue;" class="mb-3"> <%= foundspot.location %></span></h2>
+              <p class="mb-4" style="font-size: 20px;">Submitted by: <em style="color:blueviolet">@<%= foundspot.author.username %></em></p>
+              <p class="mb-3 " style="font-weight:500;font-size: large;color:#666666"><%= foundspot.description %></p>
+              <!-- likes -->
+              <div style="padding-bottom: 10px;" class="my-3">
+                <form action="/tourspots/<%= foundspot.id %>/like" method="POST">
+                    <div class="btn-group">
+                        <% if (user && foundspot.likes.some(function (like) {
+                            return like.equals(user.id)
+                        })) { %>
+                            <button class="btn btn-md btn-primary">
+                                <i class="fas fa-thumbs-up"></i> Liked (<%= foundspot.likes.length %>)
+                            </button>
+                        <% } else { %>
+                            <button class="btn btn-md btn-secondary">
+                                <i class="fas fa-thumbs-up"></i> Like (<%= foundspot.likes.length %>)
+                            </button>
+                        <% } %>
+                        <button type="button" class="btn btn-md btn-default" data-toggle="modal"
+                                data-target="#campgroundLikes">See more details
+                        </button>
+                    </div>
+                </form>
+            </div>
+              
+            <% if(user!=undefined){ %>
+              
+            <% if(foundspot.author.id.equals(user.id)){ %>
+
+              <a class="btn btn-info mr-4 m-3" href="/tourspots/<%=foundspot.id%>/edit">Edit </a>
+              <form style="display: inline;" class="m-3" action="/tourspots/<%=foundspot.id%>?_method=DELETE" method="POST" >
+                  <button class="btn btn-danger">Delete</button>
+              </form>
+            <% } %>
+             <% }%>
+
+             <div class="thumbnail">
+              <div class="caption-full">
+                  <% if (foundspot.rating === 0) { %>
+                  <h5>
+                      <em>No reviews yet.</em>
+                  </h5>
+                  <% } else { %>
+                  <p style="color:#ef6c57; font-size:1.3em;">
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star <% if (foundspot.rating > 1.5) { %> checked <% } %>"></span>
+                      <span class="fa fa-star <% if (foundspot.rating > 2.5) { %> checked <% } %>"></span>
+                      <span class="fa fa-star <% if (foundspot.rating > 3.5) { %> checked <% } %>"></span>
+                      <span class="fa fa-star <% if (foundspot.rating > 4.5) { %> checked <% } %>"></span>
+                      <em>(total reviews: <%= foundspot.reviews.length %>)</em>
+                  </p>
+                  <p>
+                      Current rating: <strong><%= foundspot.rating.toFixed(2) %></strong> 
+                  </p>
+                  <% } %>      
+              </div>
+                  
+        </div>
+    </div>
+                  
+          </div>
+        </div>
+
+        
+  </div>
+            <!-- Comments section -->
+      <div style="background-color:#fff0e6" class="mt-5">
+            <div class="p-4 container" >
+              <div class="row">
+                <div class="col-5">
+              <form action="/tourspots/<%= foundspot.id %>/reviews" method="POST">
+                <div class="form-group">
+                    <label for="rating">Leave a rating:</label>
+                    <fieldset class="starability-basic form-group" id="rating">
+                    <div>
+                    <input type="radio" id="first-rate5" name="review[rating]" value="5" checked />
+                    <label for="first-rate5" title="5 stars - Amazing">
+                        <%- '<span class="fa fa-star checked"></span>'.repeat(5) %>
+                    </label>
+                    </div>
+                    <div>
+                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                    <label for="first-rate4" title="4 stars - Very good">
+                        <%- '<span class="fa fa-star checked"></span>'.repeat(4) %>
+                    </label>
+                    </div>
+                    <div>
+                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                    <label for="first-rate3" title="3 stars - Average">
+                        <%- '<span class="fa fa-star checked"></span>'.repeat(3) %>
+                    </label>
+                    </div>
+                    <div>
+                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                    <label for="first-rate2" title="2 stars - Not good">
+                        <%- '<span class="fa fa-star checked"></span>'.repeat(2) %>
+                    </label>
+                    </div>
+                    <div>
+                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                    <label for="first-rate1" title="1 star - Terrible">
+                        <%- '<span class="fa fa-star checked"></span>'.repeat(1) %>
+                    </label>
+                  </fieldset>
+                </div>
+
+                </div>
+                
+                <div class="col-7">
+                  <div class="form-group">
+                    <textarea class="form-control" type="text" name="review[text]" placeholder="Write a review here..." rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Submit a Review</button>
+                </div>
+            </form>
+
+                </div>
+
+
+              </div>
+            </div>
+              
+                        
+                    
+               
+            
+              <!-- <form method="POST" action="/tourspots/<%=foundspot.id%>">
+                
+                <div class="form-row m-3">
+                  <div class="col">
+                    <input type="text" name="text" class="form-control" placeholder="Enter your comment">
+                  </div>
+                </div>
+                  <div class="col text-right">
+                    <button type="submit" class="btn btn-info">Add Comment</button>
+                  </div>
+                  
+              </form>
+              </form>
+              
+            </div> -->
+
+            
+
+              <!-- <% comments.forEach(function(comment){ %>
+          
+                <strong><p class="mt-2 mb-1"><%=comment.author.username%>:</p></strong> 
+                 <p style="font-weight: 500;"><%=comment.text%></p>
+                 
+                 <div style="height: 2px; background-color: white;"></div>
+
+                 <% }); %> -->
+              
+            
+            <div style="background-color:#fff0e6" class="p-4 m-3">
+              <p><h4>All reviews:</h4></p>
+             <hr style="margin-top: 0;">
+             <% foundspot.reviews.forEach(function(review){ %>
+             <div class="row">
+                 <div class="col-md-3">
+                     <%- '<span style="color:#ef6c57;" class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+                     <div>Review by: <strong><%= review.author.username %></strong></div>
+                     
+                 </div>
+                 <div class="col-md-9 pt-2">
+                     <p style="text-align: justify; word-wrap: break-word;">
+                         <%= review.text %>
+                     </p> 
+                     
+                  </div>
+             </div>
+             <hr>
+             <% }); %>
+             
+             </div>
+           
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="campgroundLikes" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Total likes: <%= foundspot.likes.length %></h4>
+          </div>
+          <div class="modal-body">
+              <table class="table table-striped">
+                  <thead>
+                  <tr>
+                      <th>Liked by:</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% foundspot.likes.forEach(function(like) { %>
+                      <tr>
+                          <td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
+                      </tr>
+                  <% }); %>
+                  <% if (foundspot.likes.length === 0) { %>
+                      <tr>
+                          <td><em>No likes yet.</em></td>
+                      </tr>
+                  <% } %>
+                  </tbody>
+              </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<%- include("footer.ejs"); %>
+
+

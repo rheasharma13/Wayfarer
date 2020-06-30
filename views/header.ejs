@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Wayfarer- Never Stop Exploring</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,700,900|Display+Playfair:200,300,400,700|Gentium+Basic">
+  <link rel="stylesheet" href="/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+  <link rel="stylesheet" href="/css/aos.css">
+
+
+
+</head>
+
+<body>
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="col-6 col-xl-2 pr-5 mr-5">
+      <h1 class="mb-0"><a href="index.html" class="text-black h2 mb-0">Wayfarer</a></h1>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse mr-5 pr-5" id="navbarNavAltMarkup">
+      <div class="navbar-nav" style="font-weight: 300; font-size: 1.1rem;">
+        <a class="nav-item nav-link text-black" href="/">Home </a>
+        <a class="nav-item nav-link text-black" href="/tourspots">All Posts</a>
+        <a class="nav-item nav-link text-black" href="/createspot">Create New Post</a>
+        <a class="nav-item nav-link text-black" href="#">About </a>
+
+        <% if(!user){ %>
+        <a class="nav-item nav-link text-black" href="/login">Login</a>
+        <a class="nav-item nav-link text-black" href="/register">Register</a>
+        <% } else{ %>
+        <a class="nav-item nav-link text-black" href="/logout">Logout</a>
+        <% } %>
+
+      </div>
+
+
+      </ul>
+    </div>
+  </nav>
+  <!-- noDisplay error and success flash messages -->
+  <% if(error && error.length>0){ %>
+  <div class="alert alert-danger mx-4 my-2 text-center" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <% if(success && success.length>0){ %>
+  <div class="alert alert-success mx-4 my-2 text-center" role="alert">
+    <%=success %>
+  </div>
+  <% } %>

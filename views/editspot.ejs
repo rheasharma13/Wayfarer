@@ -1,0 +1,37 @@
+<%- include("header.ejs"); %>
+<div class="row">
+    <div class="col-sm-10 col-md-7" style="margin: auto;">
+
+        <!-- Default form subscription -->
+        <form id="usrform" class="text-center border border-light p-5"
+            action="/tourspots/<%= foundspot._id %>?_method=PUT" method="POST">
+
+            <p class="h4 mb-4">Edit <%= foundspot.name %></p>
+            <!-- Name -->
+            Name:<input type="text" name="spot[name]" class="form-control mb-4" value="<%= foundspot.name %>">
+
+            <!-- location -->
+            Location:<input type="text" name="spot[location]" class="form-control mb-4"
+                value="<%= foundspot.location %>">
+            <input type="text" name="spot[image]" class="form-control mb-4" value="<%= foundspot.image %>">
+            Description:<textarea form="usrform" name="spot[description]" rows="10"
+                class="form-control mb-4"> <%= foundspot.description %> </textarea>
+            <!-- <input type="text" class="form-control rounded-0" name="description" placeholder="Description" rows="10"></textarea> -->
+
+            <button class="btn btn-info px-4 py-2 mt-3" type="submit">Submit</button>
+    </div>
+
+    <!-- submit -->
+
+
+
+    </form>
+
+
+</div>
+</div>
+
+<!-- Default form subscription -->
+
+
+<%- include("footer.ejs") %></div>
