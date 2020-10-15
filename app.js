@@ -154,8 +154,8 @@ var upload = multer({ storage: storage, fileFilter: imageFilter })
 var cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: "dbjepboix",
-  api_key: api_key,
-  api_secret: api_secret
+  // api_key: api_key,
+  // api_secret: api_secret
 });
 
 
@@ -167,6 +167,10 @@ cloudinary.config({
 app.get("/", function (req, res) {
   res.render("landingpage.ejs");
 
+});
+app.get("/about",function(req,res)
+{
+  res.render("about.ejs");
 });
 
 //display tourspots
